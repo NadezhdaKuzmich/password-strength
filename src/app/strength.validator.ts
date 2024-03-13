@@ -5,9 +5,9 @@ export function passwordStrengthValidator(): ValidatorFn {
     const password = control.value;
 
     const regex = /[$-/:-?{-~!"^_@`\[\]]/g;
-    const letters = /[a-zA-Z]/.test(password);
-    const numbers = /\d/.test(password);
-    const symbols = regex.test(password);
+    const hasLetters = /[a-zA-Z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSymbols = regex.test(password);
 
     if (!password) {
       return null;
@@ -17,14 +17,14 @@ export function passwordStrengthValidator(): ValidatorFn {
       return {
         weak: true,
       };
-    } else if (letters && numbers && symbols) {
+    } else if (hasLetters && hasNumbers && hasSymbols) {
       return {
         strong: true,
       };
     } else if (
-      (letters && numbers) ||
-      (letters && symbols) ||
-      (numbers && symbols)
+      (hasLetters && hasNumbers) ||
+      (hasLetters && hasSymbols) ||
+      (hasNumbers && hasSymbols)
     ) {
       return {
         medium: true,
